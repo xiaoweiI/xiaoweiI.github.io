@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XiaoWei Studio - 游戏工作室</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .logo span {
+            color: #6c5ce7;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #6c5ce7;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 50% 50%, rgba(108, 92, 231, 0.15) 0%, transparent 70%);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .hero h1 span {
+            color: #6c5ce7;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #888;
+            max-width: 500px;
+            line-height: 1.8;
+            position: relative;
+        }
+
+        .cta-btn {
+            margin-top: 40px;
+            padding: 14px 40px;
+            background: #6c5ce7;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            position: relative;
+            text-decoration: none;
+        }
+
+        .cta-btn:hover {
+            background: #5a4bd1;
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 60px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .section-subtitle {
+            color: #666;
+            margin-bottom: 60px;
+            font-size: 1rem;
+        }
+
+        /* Games Section */
+        #games {
+            background: #0e0e15;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .game-card {
+            background: #16161f;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.2);
+        }
+
+        .game-thumb {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1a1a2e, #6c5ce7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .game-info {
+            padding: 24px;
+        }
+
+        .game-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .game-info p {
+            color: #777;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .game-tag {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 12px;
+            background: rgba(108, 92, 231, 0.15);
+            color: #6c5ce7;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        /* About Section */
+        #about {
+            text-align: center;
+        }
+
+        .about-content {
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 2;
+            color: #999;
+            font-size: 1.05rem;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-top: 60px;
+        }
+
+        .stat h2 {
+            font-size: 2.5rem;
+            color: #6c5ce7;
+        }
+
+        .stat p {
+            color: #666;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: #0e0e15;
+            text-align: center;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            padding: 30px 40px;
+            background: #16161f;
+            border-radius: 12px;
+            min-width: 200px;
+        }
+
+        .contact-item h4 {
+            color: #6c5ce7;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .contact-item p {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #6c5ce7;
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0% { opacity: 0; transform: translateY(0); }
+            20% { opacity: 0.6; }
+            100% { opacity: 0; transform: translateY(-800px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 16px 24px; }
+            .nav-links { gap: 16px; }
+            .hero h1 { font-size: 2.5rem; }
+            section { padding: 60px 24px; }
+            .stats { gap: 30px; }
+            .contact-links { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">XIAO<span>WEI</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">首页</a></li>
+            <li><a href="#games">游戏</a></li>
+            <li><a href="#about">关于</a></li>
+            <li><a href="#contact">联系</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="home">
+        <h1>XIAO<span>WEI</span> STUDIO</h1>
+        <p>用心创造有趣的游戏体验，探索互动娱乐的无限可能</p>
+        <a href="#games" class="cta-btn">探索我们的作品</a>
+    </section>
+
+    <!-- Games -->
+    <section id="games">
+        <h2 class="section-title">我们的游戏</h2>
+        <p class="section-subtitle">每一款作品都倾注了我们的热情与创意</p>
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-thumb">🎮</div>
+                <div class="game-info">
+                    <h3>星际迷航</h3>
+                    <p>在浩瀚宇宙中探索未知星球，建造属于你的星际帝国。</p>
+                    <span class="game-tag">策略 / 沙盒</span>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-thumb">⚔️</div>
+                <div class="game-info">
+                    <h3>暗影之刃</h3>
+                    <p>快节奏的动作冒险，在黑暗中寻找光明的力量。</p>
+                    <span class="game-tag">动作 / RPG</span>
+                </div>
+            </div>
+            <div class="game-card">
+                <div class="game-thumb">🧩</div>
+                <div class="game-info">
+                    <h3>时光拼图</h3>
+                    <p>穿越时空解开层层谜题，揭开隐藏的真相。</p>
+                    <span class="game-tag">解谜 / 剧情</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <h2 class="section-title">关于工作室</h2>
+        <p class="section-subtitle">创造，是我们的热爱</p>
+        <div class="about-content">
+            XiaoWei Studio 是一个充满激情的独立游戏工作室。我们相信游戏是一种独特的艺术形式，能够为玩家带来难忘的体验。我们专注于创新的游戏机制与引人入胜的叙事，致力于打造每一位玩家都能享受的精品游戏。
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <h2>3+</h2>
+                <p>游戏作品</p>
+            </div>
+            <div class="stat">
+                <h2>10K+</h2>
+                <p>玩家社区</p>
+            </div>
+            <div class="stat">
+                <h2>2024</h2>
+                <p>成立年份</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2 class="section-title">联系我们</h2>
+        <p class="section-subtitle">期待与你的交流</p>
+        <div class="contact-links">
+            <div class="contact-item">
+                <h4>邮箱</h4>
+                <p>hello@xiaowei.studio</p>
+            </div>
+            <div class="contact-item">
+                <h4>社交媒体</h4>
+                <p>@XiaoWeiStudio</p>
+            </div>
+            <div class="contact-item">
+                <h4>Discord</h4>
+                <p>XiaoWei Community</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 XiaoWei Studio. All rights reserved.
+    </footer>
+
+    <script>
+        // Create floating particles
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            p.style.left = Math.random() * 100 + '%';
+            p.style.top = (Math.random() * 100 + 50) + '%';
+            p.style.animationDelay = Math.random() * 6 + 's';
+            p.style.animationDuration = (4 + Math.random() * 4) + 's';
+            container.appendChild(p);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
