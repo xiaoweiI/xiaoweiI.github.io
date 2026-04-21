@@ -1,364 +1,596 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XiaoWei Studio - 游戏工作室</title>
+    <title>Pumpkin Scone Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #F2EDE8;
+            --bg-alt: #EBE4DC;
+            --primary: #B8A99A;
+            --accent: #C4A882;
+            --green: #A3B5A6;
+            --purple: #B5A8C0;
+            --text: #5C5249;
+            --text-light: #8A7E74;
+            --card-bg: #F7F3EF;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0f;
-            color: #e0e0e0;
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
             overflow-x: hidden;
         }
 
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
+        /* ===== Pixel Roof Beam ===== */
+        .pixel-roof {
+            position: relative;
             width: 100%;
-            padding: 20px 60px;
+            height: 28px;
+            background: var(--accent);
+            z-index: 10;
+            overflow: hidden;
+            image-rendering: pixelated;
+        }
+        .pixel-roof::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+        }
+        .pixel-roof::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+        }
+        .roof-pattern {
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px, transparent 26px,
+                    rgba(0,0,0,0.08) 26px, rgba(0,0,0,0.08) 28px
+                );
+        }
+        .roof-nails {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle, var(--text) 2px, transparent 2px);
+            background-size: 28px 28px;
+            background-position: 14px 12px;
+        }
+
+        /* ===== Nav ===== */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(242,237,232,0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid var(--primary);
+            padding: 14px 48px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
-            background: rgba(10, 10, 15, 0.85);
-            backdrop-filter: blur(10px);
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
+        .nav-brand {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: var(--accent);
             letter-spacing: 2px;
-            color: #fff;
+            text-decoration: none;
         }
-
-        .logo span {
-            color: #6c5ce7;
-        }
-
         .nav-links {
             display: flex;
-            gap: 30px;
-            list-style: none;
+            gap: 28px;
         }
-
         .nav-links a {
-            color: #aaa;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
             text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
+            transition: color 0.2s;
         }
+        .nav-links a:hover { color: var(--accent); }
 
-        .nav-links a:hover {
-            color: #6c5ce7;
-        }
-
-        /* Hero Section */
+        /* ===== Hero (minimal) ===== */
         .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at 50% 50%, rgba(108, 92, 231, 0.15) 0%, transparent 70%);
+            padding: 120px 48px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            letter-spacing: 4px;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .hero h1 span {
-            color: #6c5ce7;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #888;
-            max-width: 500px;
-            line-height: 1.8;
-            position: relative;
-        }
-
-        .cta-btn {
-            margin-top: 40px;
-            padding: 14px 40px;
-            background: #6c5ce7;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 1rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-            position: relative;
-            text-decoration: none;
-        }
-
-        .cta-btn:hover {
-            background: #5a4bd1;
-            transform: translateY(-2px);
-        }
-
-        /* Section Styles */
-        section {
-            padding: 100px 60px;
-        }
-
-        .section-title {
+            font-family: 'Press Start 2P', cursive;
             font-size: 2rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 0 rgba(196,168,130,0.2);
+        }
+
+        .hero .tagline {
+            font-size: 1.1rem;
+            color: var(--text);
+            line-height: 1.8;
+            max-width: 640px;
+            margin-bottom: 28px;
+        }
+
+        .now-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
             letter-spacing: 2px;
-            margin-bottom: 10px;
+            padding: 10px 14px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+        }
+        .now-dot {
+            width: 8px; height: 8px;
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .hero-stars {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .pixel-star {
+            position: absolute;
+            width: 8px; height: 8px;
+            background: var(--accent);
+            opacity: 0.4;
+            animation: twinkle 3s infinite;
+        }
+        .pixel-star::before, .pixel-star::after {
+            content: ''; position: absolute; background: var(--accent); width: 4px; height: 4px;
+        }
+        .pixel-star::before { top: -4px; left: 2px; }
+        .pixel-star::after { bottom: -4px; left: 2px; }
+        @keyframes twinkle { 0%,100% { opacity: 0.2; } 50% { opacity: 0.7; } }
+
+        /* ===== Section Common ===== */
+        section { padding: 80px 48px; }
+
+        .container { max-width: 1100px; margin: 0 auto; }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 32px;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 16px;
         }
 
-        .section-subtitle {
-            color: #666;
-            margin-bottom: 60px;
-            font-size: 1rem;
+        .section-label {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
-        /* Games Section */
-        #games {
-            background: #0e0e15;
+        .section-count {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
         }
 
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .game-card {
-            background: #16161f;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .game-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.2);
-        }
-
-        .game-thumb {
+        /* ===== Index Table ===== */
+        .index-table {
             width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #1a1a2e, #6c5ce7);
+            border-collapse: collapse;
+        }
+        .index-table tr {
+            border-bottom: 2px solid var(--bg-alt);
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+        .index-table tr:hover {
+            background: var(--card-bg);
+        }
+        .index-table td {
+            padding: 18px 12px;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+        .index-table td.year {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            width: 80px;
+        }
+        .index-table td.name {
+            font-weight: 500;
+            color: var(--accent);
+        }
+        .index-table td.type,
+        .index-table td.platform {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        .index-table td.status {
+            width: 140px;
+        }
+
+        .status-tag {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.4rem;
+            padding: 5px 10px;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary);
+            color: var(--text-light);
+        }
+        .status-tag.released { border-color: var(--green); color: var(--green); background: rgba(163,181,166,0.15); }
+        .status-tag.dev      { border-color: var(--accent); color: var(--accent); background: rgba(196,168,130,0.15); }
+        .status-tag.planned  { border-color: var(--purple); color: var(--purple); background: rgba(181,168,192,0.15); }
+        .status-tag.ongoing  { border-color: var(--primary); color: var(--text-light); }
+
+        /* ===== Featured ===== */
+        #featured { background: var(--bg-alt); border-top: 3px solid var(--primary); border-bottom: 3px solid var(--primary); }
+
+        .featured-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            background: var(--card-bg);
+            border: 3px solid var(--primary);
+            box-shadow: 8px 8px 0 0 var(--primary);
+            overflow: hidden;
+            align-items: stretch;
+        }
+        .featured-thumb {
+            aspect-ratio: 16/9;
+            background: var(--bg-alt);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            border-right: 3px solid var(--primary);
         }
-
-        .game-info {
-            padding: 24px;
+        .featured-thumb .placeholder-text {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--primary);
+            letter-spacing: 2px;
+            opacity: 0.5;
         }
-
-        .game-info h3 {
-            font-size: 1.2rem;
+        .featured-info { padding: 40px; }
+        .featured-info .status-tag { margin-bottom: 16px; }
+        .featured-info h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1rem;
+            color: var(--accent);
+            letter-spacing: 2px;
             margin-bottom: 8px;
-        }
-
-        .game-info p {
-            color: #777;
-            font-size: 0.9rem;
             line-height: 1.6;
         }
-
-        .game-tag {
-            display: inline-block;
-            margin-top: 12px;
-            padding: 4px 12px;
-            background: rgba(108, 92, 231, 0.15);
-            color: #6c5ce7;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-        }
-
-        /* About Section */
-        #about {
-            text-align: center;
-        }
-
-        .about-content {
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 2;
-            color: #999;
-            font-size: 1.05rem;
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 80px;
-            margin-top: 60px;
-        }
-
-        .stat h2 {
-            font-size: 2.5rem;
-            color: #6c5ce7;
-        }
-
-        .stat p {
-            color: #666;
+        .featured-info .genre {
             font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        .featured-info p {
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            padding: 14px 24px;
+            text-decoration: none;
+            cursor: pointer;
             letter-spacing: 1px;
-            margin-top: 4px;
+            transition: all 0.2s;
+            border: none;
         }
-
-        /* Contact Section */
-        #contact {
-            background: #0e0e15;
-            text-align: center;
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 4px 4px 0 0 var(--text);
         }
+        .btn-primary:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 0 var(--text); }
+        .btn-primary:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 0 var(--text); }
 
-        .contact-links {
+        /* ===== Categories ===== */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .category-card {
+            background: var(--card-bg);
+            border: 3px solid var(--primary);
+            box-shadow: 4px 4px 0 0 var(--primary);
+            padding: 28px 24px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 40px;
+            flex-direction: column;
+            gap: 12px;
         }
-
-        .contact-item {
-            padding: 30px 40px;
-            background: #16161f;
-            border-radius: 12px;
-            min-width: 200px;
+        .category-card:hover {
+            transform: translate(-2px,-2px);
+            box-shadow: 6px 6px 0 0 var(--primary);
         }
-
-        .contact-item h4 {
-            color: #6c5ce7;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        .contact-item p {
-            color: #888;
-            font-size: 0.9rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: #444;
+        .category-card h3 {
+            font-family: 'Press Start 2P', cursive;
             font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+        .category-card .cat-count {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.45rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+        .category-card .cat-latest {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-top: auto;
+        }
+
+        /* ===== Devlog ===== */
+        #devlog { background: var(--bg-alt); border-top: 3px solid var(--primary); border-bottom: 3px solid var(--primary); }
+
+        .devlog-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .devlog-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 24px;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--bg);
+        }
+        .devlog-item:last-child { border-bottom: none; }
+        .devlog-date {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+        .devlog-body h4 {
+            font-size: 1rem;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .devlog-body p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* ===== About (compressed) ===== */
+        #about .about-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+        .about-text p {
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+        .about-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.45rem;
+            padding: 8px 14px;
+            background: rgba(196,168,130,0.15);
+            color: var(--accent);
+            letter-spacing: 1px;
+            border: 2px solid var(--accent);
+        }
+        .about-contact {
+            background: var(--card-bg);
+            border: 3px solid var(--primary);
+            box-shadow: 4px 4px 0 0 var(--primary);
+            padding: 28px;
+        }
+        .about-contact h4 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            color: var(--text);
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+        .about-contact ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .about-contact a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .about-contact a:hover { color: var(--accent); }
+
+        /* ===== Footer ===== */
+        footer {
+            border-top: 3px solid var(--primary);
+            padding: 32px 48px;
+            text-align: center;
+        }
+        footer p {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
             letter-spacing: 1px;
         }
 
-        /* Particles */
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #6c5ce7;
-            border-radius: 50%;
-            opacity: 0;
-            animation: float 6s infinite;
-        }
-
-        @keyframes float {
-            0% { opacity: 0; transform: translateY(0); }
-            20% { opacity: 0.6; }
-            100% { opacity: 0; transform: translateY(-800px); }
-        }
-
-        /* Responsive */
+        /* ===== Mobile ===== */
         @media (max-width: 768px) {
-            nav { padding: 16px 24px; }
-            .nav-links { gap: 16px; }
-            .hero h1 { font-size: 2.5rem; }
-            section { padding: 60px 24px; }
-            .stats { gap: 30px; }
-            .contact-links { flex-direction: column; align-items: center; }
+            .nav { padding: 12px 20px; }
+            .nav-links { gap: 14px; }
+            .nav-links a { font-size: 0.4rem; }
+
+            .hero { padding: 60px 24px; }
+            .hero h1 { font-size: 1.3rem; }
+            .hero .tagline { font-size: 0.95rem; }
+
+            section { padding: 56px 24px; }
+
+            .index-table td { padding: 12px 6px; font-size: 0.85rem; }
+            .index-table td.type, .index-table td.platform { display: none; }
+
+            .featured-card { grid-template-columns: 1fr; }
+            .featured-thumb { border-right: none; border-bottom: 3px solid var(--primary); }
+            .featured-info { padding: 28px; }
+
+            #about .about-inner { grid-template-columns: 1fr; gap: 32px; }
+
+            .devlog-item { grid-template-columns: 1fr; gap: 6px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Particles Background -->
-    <div class="particles" id="particles"></div>
+    <!-- Pixel Roof Beam -->
+    <div class="pixel-roof">
+        <div class="roof-pattern"></div>
+        <div class="roof-nails"></div>
+    </div>
 
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">XIAO<span>WEI</span></div>
-        <ul class="nav-links">
-            <li><a href="#home">首页</a></li>
-            <li><a href="#games">游戏</a></li>
-            <li><a href="#about">关于</a></li>
-            <li><a href="#contact">联系</a></li>
-        </ul>
+    <!-- Nav -->
+    <nav class="nav">
+        <a href="#home" class="nav-brand">PUMPKIN SCONE</a>
+        <div class="nav-links">
+            <a href="works.html">WORKS</a>
+            <a href="#categories">CATEGORIES</a>
+            <a href="#devlog">DEVLOG</a>
+            <a href="#about">ABOUT</a>
+        </div>
     </nav>
 
     <!-- Hero -->
     <section class="hero" id="home">
-        <h1>XIAO<span>WEI</span> STUDIO</h1>
-        <p>用心创造有趣的游戏体验，探索互动娱乐的无限可能</p>
-        <a href="#games" class="cta-btn">探索我们的作品</a>
+        <div class="hero-stars">
+            <div class="pixel-star" style="top:20%;left:8%;animation-delay:0s;"></div>
+            <div class="pixel-star" style="top:30%;right:12%;animation-delay:1s;"></div>
+            <div class="pixel-star" style="top:70%;left:15%;animation-delay:0.5s;"></div>
+            <div class="pixel-star" style="top:60%;right:20%;animation-delay:2s;"></div>
+        </div>
+        <h1>Pumpkin Scone<br>Studio</h1>
+        <p class="tagline">I make games, apps, and little worlds. Solo indie developer crafting cozy pixel things across PC, mobile, and Minecraft.</p>
+        <div class="now-status">
+            <span class="now-dot"></span>
+            <span>NOW &nbsp;·&nbsp; BUILDING [GAME TITLE]</span>
+        </div>
     </section>
 
-    <!-- Games -->
-    <section id="games">
-        <h2 class="section-title">我们的游戏</h2>
-        <p class="section-subtitle">每一款作品都倾注了我们的热情与创意</p>
-        <div class="games-grid">
-            <div class="game-card">
-                <div class="game-thumb">🎮</div>
-                <div class="game-info">
-                    <h3>星际迷航</h3>
-                    <p>在浩瀚宇宙中探索未知星球，建造属于你的星际帝国。</p>
-                    <span class="game-tag">策略 / 沙盒</span>
+    <!-- Featured -->
+    <section id="featured">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">FEATURED</span>
+                <span class="section-count">CURRENT FOCUS</span>
+            </div>
+            <div class="featured-card">
+                <div class="featured-thumb">
+                    <span class="placeholder-text">KEY ART / SCREENSHOT</span>
+                </div>
+                <div class="featured-info">
+                    <span class="status-tag dev">IN DEVELOPMENT</span>
+                    <h3>Game Title</h3>
+                    <p class="genre">Simulation / Pixel Art · PC</p>
+                    <p>A cozy simulation game where you build, grow, and explore a world full of warmth and surprises. More details coming soon.</p>
+                    <a href="#" class="btn btn-primary">LEARN MORE</a>
                 </div>
             </div>
-            <div class="game-card">
-                <div class="game-thumb">⚔️</div>
-                <div class="game-info">
-                    <h3>暗影之刃</h3>
-                    <p>快节奏的动作冒险，在黑暗中寻找光明的力量。</p>
-                    <span class="game-tag">动作 / RPG</span>
-                </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">CATEGORIES</span>
+                <span class="section-count">BROWSE BY TYPE</span>
             </div>
-            <div class="game-card">
-                <div class="game-thumb">🧩</div>
-                <div class="game-info">
-                    <h3>时光拼图</h3>
-                    <p>穿越时空解开层层谜题，揭开隐藏的真相。</p>
-                    <span class="game-tag">解谜 / 剧情</span>
+            <div class="category-grid">
+                <a href="#" class="category-card">
+                    <h3>GAMES</h3>
+                    <span class="cat-count">1 PROJECT</span>
+                    <p class="cat-latest">Latest: Game Title (in dev)</p>
+                </a>
+                <a href="#" class="category-card">
+                    <h3>APPS</h3>
+                    <span class="cat-count">1 PLANNED</span>
+                    <p class="cat-latest">iOS &amp; Android releases</p>
+                </a>
+                <a href="#" class="category-card">
+                    <h3>MODS</h3>
+                    <span class="cat-count">COMING SOON</span>
+                    <p class="cat-latest">Future mod projects</p>
+                </a>
+                <a href="#" class="category-card">
+                    <h3>MINECRAFT</h3>
+                    <span class="cat-count">ONGOING</span>
+                    <p class="cat-latest">Videos, screenshots, blueprints</p>
+                </a>
+                <a href="#" class="category-card">
+                    <h3>WORLD</h3>
+                    <span class="cat-count">ONGOING</span>
+                    <p class="cat-latest">OC &amp; worldbuilding lore</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Devlog -->
+    <section id="devlog">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">DEVLOG</span>
+                <span class="section-count">RECENT UPDATES</span>
+            </div>
+            <div class="devlog-list">
+                <div class="devlog-item">
+                    <span class="devlog-date">2026-04-14</span>
+                    <div class="devlog-body">
+                        <h4>Site redesign — multi-category layout</h4>
+                        <p>Restructured the site around a works index, featured project, and category grid. Added devlog and changelog.</p>
+                    </div>
+                </div>
+                <div class="devlog-item">
+                    <span class="devlog-date">2025</span>
+                    <div class="devlog-body">
+                        <h4>Studio founded</h4>
+                        <p>Pumpkin Scone Studio is born. Starting with a cozy simulation game for PC.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -366,72 +598,45 @@
 
     <!-- About -->
     <section id="about">
-        <h2 class="section-title">关于工作室</h2>
-        <p class="section-subtitle">创造，是我们的热爱</p>
-        <div class="about-content">
-            XiaoWei Studio 是一个充满激情的独立游戏工作室。我们相信游戏是一种独特的艺术形式，能够为玩家带来难忘的体验。我们专注于创新的游戏机制与引人入胜的叙事，致力于打造每一位玩家都能享受的精品游戏。
-        </div>
-        <div class="stats">
-            <div class="stat">
-                <h2>3+</h2>
-                <p>游戏作品</p>
+        <div class="container">
+            <div class="section-head">
+                <span class="section-label">ABOUT</span>
+                <span class="section-count">WHO &amp; HOW TO REACH</span>
             </div>
-            <div class="stat">
-                <h2>10K+</h2>
-                <p>玩家社区</p>
-            </div>
-            <div class="stat">
-                <h2>2024</h2>
-                <p>成立年份</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact">
-        <h2 class="section-title">联系我们</h2>
-        <p class="section-subtitle">期待与你的交流</p>
-        <div class="contact-links">
-            <div class="contact-item">
-                <h4>邮箱</h4>
-                <p>hello@xiaowei.studio</p>
-            </div>
-            <div class="contact-item">
-                <h4>社交媒体</h4>
-                <p>@XiaoWeiStudio</p>
-            </div>
-            <div class="contact-item">
-                <h4>Discord</h4>
-                <p>XiaoWei Community</p>
+            <div class="about-inner">
+                <div class="about-text">
+                    <p>
+                        Pumpkin Scone Studio is a solo indie studio making cozy pixel things:
+                        simulation games, mobile apps, Minecraft builds, and an evolving OC world.
+                        Every pixel is placed with care.
+                    </p>
+                    <div class="about-tags">
+                        <span class="tag">GAMES</span>
+                        <span class="tag">APPS</span>
+                        <span class="tag">MODS</span>
+                        <span class="tag">MINECRAFT</span>
+                        <span class="tag">WORLDBUILDING</span>
+                        <span class="tag">PIXEL ART</span>
+                    </div>
+                </div>
+                <div class="about-contact">
+                    <h4>CONTACT</h4>
+                    <ul>
+                        <li><a href="mailto:hello@pumpkinscone.studio">hello@pumpkinscone.studio</a></li>
+                        <li><a href="#">Twitter / X</a></li>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">YouTube</a></li>
+                        <li><a href="#">Bilibili</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        &copy; 2024 XiaoWei Studio. All rights reserved.
+        <p>&copy; 2025 PUMPKIN SCONE STUDIO</p>
     </footer>
 
-    <script>
-        // Create floating particles
-        const container = document.getElementById('particles');
-        for (let i = 0; i < 30; i++) {
-            const p = document.createElement('div');
-            p.classList.add('particle');
-            p.style.left = Math.random() * 100 + '%';
-            p.style.top = (Math.random() * 100 + 50) + '%';
-            p.style.animationDelay = Math.random() * 6 + 's';
-            p.style.animationDuration = (4 + Math.random() * 4) + 's';
-            container.appendChild(p);
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(a => {
-            a.addEventListener('click', e => {
-                e.preventDefault();
-                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    </script>
 </body>
 </html>

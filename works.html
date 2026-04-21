@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works — Pumpkin Scone Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+SC:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F2EDE8;
+            --bg-alt: #EBE4DC;
+            --primary: #B8A99A;
+            --accent: #C4A882;
+            --green: #A3B5A6;
+            --purple: #B5A8C0;
+            --text: #5C5249;
+            --text-light: #8A7E74;
+            --card-bg: #F7F3EF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Pixel Roof */
+        .pixel-roof {
+            position: relative;
+            width: 100%;
+            height: 28px;
+            background: var(--accent);
+            z-index: 10;
+            overflow: hidden;
+        }
+        .pixel-roof::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: rgba(255,255,255,0.2);
+        }
+        .pixel-roof::after {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0; height: 4px;
+            background: rgba(0,0,0,0.1);
+        }
+        .roof-nails {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle, var(--text) 2px, transparent 2px);
+            background-size: 28px 28px;
+            background-position: 14px 12px;
+        }
+
+        /* Nav */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: rgba(242,237,232,0.92);
+            backdrop-filter: blur(8px);
+            border-bottom: 3px solid var(--primary);
+            padding: 14px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 28px; }
+        .nav-links a {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--accent); }
+
+        /* Page Header */
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 48px 40px;
+        }
+        .page-header h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.6rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            text-shadow: 4px 4px 0 rgba(196,168,130,0.2);
+        }
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+            line-height: 1.8;
+            max-width: 640px;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 48px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-btn {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            padding: 10px 14px;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .filter-btn:hover { color: var(--accent); border-color: var(--accent); }
+        .filter-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* Works Table */
+        .works-section {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 48px 120px;
+        }
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 16px;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 14px;
+        }
+        .section-label {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.6rem;
+            color: var(--accent);
+            letter-spacing: 4px;
+        }
+        .section-count {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
+            letter-spacing: 2px;
+        }
+
+        .index-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .index-table tr {
+            border-bottom: 2px solid var(--bg-alt);
+            transition: background 0.15s;
+            cursor: pointer;
+        }
+        .index-table tr:hover { background: var(--card-bg); }
+        .index-table td {
+            padding: 18px 12px;
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+        .index-table td.year {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.55rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            width: 80px;
+        }
+        .index-table td.name { font-weight: 500; color: var(--accent); }
+        .index-table td.type,
+        .index-table td.platform {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+        .index-table td.status { width: 140px; }
+
+        .status-tag {
+            display: inline-block;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.4rem;
+            padding: 5px 10px;
+            letter-spacing: 1px;
+            border: 2px solid var(--primary);
+            color: var(--text-light);
+        }
+        .status-tag.released { border-color: var(--green); color: var(--green); background: rgba(163,181,166,0.15); }
+        .status-tag.dev      { border-color: var(--accent); color: var(--accent); background: rgba(196,168,130,0.15); }
+        .status-tag.planned  { border-color: var(--purple); color: var(--purple); background: rgba(181,168,192,0.15); }
+        .status-tag.ongoing  { border-color: var(--primary); color: var(--text-light); }
+
+        .works-empty {
+            display: none;
+            padding: 40px 12px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 3px solid var(--primary);
+            padding: 32px 48px;
+            text-align: center;
+        }
+        footer p {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.5rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 768px) {
+            .nav { padding: 12px 20px; }
+            .nav-links { gap: 14px; }
+            .nav-links a { font-size: 0.4rem; }
+
+            .page-header { padding: 48px 24px 24px; }
+            .page-header h1 { font-size: 1.1rem; }
+
+            .filter-bar { padding: 0 24px 20px; }
+            .works-section { padding: 0 24px 64px; }
+
+            .index-table td { padding: 12px 6px; font-size: 0.85rem; }
+            .index-table td.type, .index-table td.platform { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pixel-roof">
+        <div class="roof-nails"></div>
+    </div>
+
+    <nav class="nav">
+        <a href="index.html" class="nav-brand">PUMPKIN SCONE</a>
+        <div class="nav-links">
+            <a href="works.html" class="active">WORKS</a>
+            <a href="index.html#categories">CATEGORIES</a>
+            <a href="index.html#devlog">DEVLOG</a>
+            <a href="index.html#about">ABOUT</a>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Works</h1>
+        <p>Every project I've made, am making, or plan to make. Sorted by year. Filter by type to narrow down.</p>
+    </header>
+
+    <div class="filter-bar" id="filter-bar">
+        <button class="filter-btn active" data-filter="all">ALL</button>
+        <button class="filter-btn" data-filter="game">GAMES</button>
+        <button class="filter-btn" data-filter="app">APPS</button>
+        <button class="filter-btn" data-filter="mod">MODS</button>
+        <button class="filter-btn" data-filter="world">WORLD</button>
+        <button class="filter-btn" data-filter="mc">MINECRAFT</button>
+    </div>
+
+    <section class="works-section">
+        <div class="section-head">
+            <span class="section-label">ALL WORKS</span>
+            <span class="section-count" id="works-count">5 PROJECTS</span>
+        </div>
+        <table class="index-table">
+            <tbody id="works-body">
+                <tr data-cat="game">
+                    <td class="year">2025</td>
+                    <td class="name">Game Title</td>
+                    <td class="type">Game · Simulation</td>
+                    <td class="status"><span class="status-tag dev">IN DEV</span></td>
+                    <td class="platform">PC</td>
+                </tr>
+                <tr data-cat="app">
+                    <td class="year">2025</td>
+                    <td class="name">App Name</td>
+                    <td class="type">App</td>
+                    <td class="status"><span class="status-tag planned">PLANNED</span></td>
+                    <td class="platform">iOS · Android</td>
+                </tr>
+                <tr data-cat="mod">
+                    <td class="year">2025</td>
+                    <td class="name">Mod Project</td>
+                    <td class="type">Mod</td>
+                    <td class="status"><span class="status-tag planned">PLANNED</span></td>
+                    <td class="platform">—</td>
+                </tr>
+                <tr data-cat="world">
+                    <td class="year">—</td>
+                    <td class="name">OC World</td>
+                    <td class="type">Worldbuilding</td>
+                    <td class="status"><span class="status-tag ongoing">ONGOING</span></td>
+                    <td class="platform">—</td>
+                </tr>
+                <tr data-cat="mc">
+                    <td class="year">2025</td>
+                    <td class="name">MC Builds &amp; Videos</td>
+                    <td class="type">Minecraft</td>
+                    <td class="status"><span class="status-tag ongoing">ONGOING</span></td>
+                    <td class="platform">Java</td>
+                </tr>
+            </tbody>
+        </table>
+        <p class="works-empty" id="works-empty">No works in this category yet.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 PUMPKIN SCONE STUDIO</p>
+    </footer>
+
+    <script>
+        const buttons = document.querySelectorAll('.filter-btn');
+        const rows = document.querySelectorAll('#works-body tr');
+        const empty = document.getElementById('works-empty');
+        const count = document.getElementById('works-count');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                buttons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                let visible = 0;
+                rows.forEach(row => {
+                    const show = filter === 'all' || row.dataset.cat === filter;
+                    row.style.display = show ? '' : 'none';
+                    if (show) visible++;
+                });
+                empty.style.display = visible === 0 ? 'block' : 'none';
+                count.textContent = visible + (visible === 1 ? ' PROJECT' : ' PROJECTS');
+            });
+        });
+    </script>
+
+</body>
+</html>
