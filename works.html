@@ -15,6 +15,7 @@
             --accent: #C4A882;
             --green: #A3B5A6;
             --purple: #B5A8C0;
+            --pink: #D9A8A8;
             --text: #5C5249;
             --text-light: #8A7E74;
             --card-bg: #F7F3EF;
@@ -28,6 +29,19 @@
             background: var(--bg);
             color: var(--text);
             overflow-x: hidden;
+        }
+
+        /* Theme transition: applied briefly on theme swap so color changes animate smoothly
+           without interfering with normal per-element hover transitions afterwards. */
+        body.theming,
+        body.theming *:not(img):not(video) {
+            transition:
+                background-color 0.55s ease,
+                color 0.55s ease,
+                border-color 0.55s ease,
+                box-shadow 0.55s ease,
+                fill 0.55s ease,
+                stroke 0.55s ease !important;
         }
 
         /* Pixel Roof */
@@ -68,17 +82,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 20px;
         }
         .nav-brand {
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
             font-size: 0.7rem;
             color: var(--accent);
             letter-spacing: 2px;
             text-decoration: none;
         }
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
         .nav-links { display: flex; gap: 28px; }
         .nav-links a {
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
             font-size: 0.5rem;
             color: var(--text-light);
             letter-spacing: 2px;
@@ -88,132 +108,330 @@
         .nav-links a:hover,
         .nav-links a.active { color: var(--accent); }
 
-        /* Page Header */
-        .page-header {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 80px 48px 40px;
-        }
-        .page-header h1 {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 1.6rem;
-            color: var(--accent);
-            letter-spacing: 3px;
-            margin-bottom: 16px;
-            text-shadow: 4px 4px 0 rgba(196,168,130,0.2);
-        }
-        .page-header p {
-            color: var(--text-light);
-            font-size: 1rem;
-            line-height: 1.8;
-            max-width: 640px;
-        }
-
-        /* Filter Bar */
-        .filter-bar {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 48px 24px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .filter-btn {
-            font-family: 'Press Start 2P', cursive;
+        .lang-toggle {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
             font-size: 0.5rem;
-            padding: 10px 14px;
+            padding: 8px 12px;
             letter-spacing: 1px;
-            border: 2px solid var(--primary);
             background: transparent;
-            color: var(--text-light);
+            color: var(--text);
+            border: 2px solid var(--primary);
             cursor: pointer;
             transition: all 0.15s;
         }
-        .filter-btn:hover { color: var(--accent); border-color: var(--accent); }
-        .filter-btn.active {
+        .lang-toggle:hover {
             background: var(--accent);
             color: #fff;
             border-color: var(--accent);
         }
 
-        /* Works Table */
-        .works-section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 48px 120px;
+        /* Page Header (centered) */
+        .page-header {
+            text-align: center;
+            padding: 80px 48px 24px;
         }
-        .section-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 16px;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 14px;
-        }
-        .section-label {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.6rem;
+        .page-header h1 {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 1.8rem;
             color: var(--accent);
             letter-spacing: 4px;
+            margin-bottom: 16px;
+            text-shadow: 4px 4px 0 rgba(196,168,130,0.2);
         }
-        .section-count {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.5rem;
+        .page-header p {
             color: var(--text-light);
+            font-size: 0.95rem;
             letter-spacing: 2px;
         }
 
-        .index-table {
-            width: 100%;
-            border-collapse: collapse;
+        /* Layout */
+        .works-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 48px 120px;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            align-items: start;
         }
-        .index-table tr {
-            border-bottom: 2px solid var(--bg-alt);
-            transition: background 0.15s;
-            cursor: pointer;
-        }
-        .index-table tr:hover { background: var(--card-bg); }
-        .index-table td {
-            padding: 18px 12px;
-            font-size: 0.95rem;
-            color: var(--text);
-        }
-        .index-table td.year {
-            font-family: 'Press Start 2P', cursive;
-            font-size: 0.55rem;
-            color: var(--text-light);
-            letter-spacing: 1px;
-            width: 80px;
-        }
-        .index-table td.name { font-weight: 500; color: var(--accent); }
-        .index-table td.type,
-        .index-table td.platform {
-            color: var(--text-light);
-            font-size: 0.85rem;
-        }
-        .index-table td.status { width: 140px; }
 
-        .status-tag {
-            display: inline-block;
-            font-family: 'Press Start 2P', cursive;
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            background: var(--card-bg);
+            border: 3px solid var(--primary);
+            box-shadow: 4px 4px 0 0 var(--primary);
+            padding: 24px 20px;
+        }
+        .sidebar-title {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.75rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--bg-alt);
+        }
+        .sidebar-group { margin-bottom: 18px; }
+        .sidebar-group:last-child { margin-bottom: 0; }
+        .group-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.5rem;
+            color: var(--text);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            padding: 0 8px;
+        }
+        .group-label .pixel-icon {
+            width: 10px; height: 10px;
+            background: var(--accent);
+            box-shadow: 2px 0 0 var(--accent), 0 2px 0 var(--accent), -2px 0 0 var(--accent), 0 -2px 0 var(--accent);
+        }
+        .subgroup-label {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
             font-size: 0.4rem;
-            padding: 5px 10px;
+            color: var(--text-light);
+            letter-spacing: 2px;
+            padding: 4px 12px;
+            margin-top: 6px;
+            opacity: 0.8;
+        }
+        .sidebar-empty {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-align: center;
+            padding: 20px 12px;
+            display: none;
+        }
+        .sidebar-empty.show { display: block; }
+
+        /* Main empty state */
+        .main-empty {
+            border: 3px dashed var(--primary);
+            padding: 80px 40px;
+            text-align: center;
+            background: var(--card-bg);
+        }
+        .main-empty h2 {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 1.4rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            text-shadow: 3px 3px 0 rgba(196,168,130,0.2);
+        }
+        .main-empty p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+        .main-empty .pixel-dots {
+            display: inline-flex;
+            gap: 8px;
+            margin-top: 24px;
+        }
+        .main-empty .pixel-dots span {
+            width: 10px; height: 10px;
+            background: var(--accent);
+            animation: pulse-dot 1.4s infinite;
+        }
+        .main-empty .pixel-dots span:nth-child(2) { animation-delay: 0.2s; background: var(--primary); }
+        .main-empty .pixel-dots span:nth-child(3) { animation-delay: 0.4s; background: var(--green); }
+        @keyframes pulse-dot {
+            0%,100% { opacity: 0.3; transform: translateY(0); }
+            50%     { opacity: 1;   transform: translateY(-4px); }
+        }
+        .sidebar-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+            color: var(--text);
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.15s;
+        }
+        .sidebar-item:hover {
+            background: var(--bg-alt);
+            border-color: var(--primary);
+        }
+        .sidebar-item.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            box-shadow: 3px 3px 0 0 var(--text);
+        }
+        .sidebar-item .platform-icons {
+            display: flex;
+            gap: 4px;
+            font-size: 0.7rem;
+        }
+        .plat {
+            display: inline-block;
+            width: 14px; height: 14px;
+            background: var(--primary);
+            opacity: 0.7;
+        }
+        .plat.pc     { background: var(--accent); }
+        .plat.mobile { background: var(--pink); }
+        .plat.mc     { background: var(--green); }
+        .plat.world  { background: var(--purple); }
+        .plat.web    { background: #9BB5C4; }
+        .sidebar-item.active .plat { opacity: 1; }
+
+        /* Main */
+        .main {
+            min-width: 0;
+        }
+        .work-hero {
+            position: relative;
+            background: var(--pink);
+            aspect-ratio: 21/9;
+            border: 3px solid var(--primary);
+            box-shadow: 6px 6px 0 0 var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .work-hero.game-hero   { background: var(--accent); }
+        .work-hero.mod-hero    { background: var(--purple); }
+        .work-hero.world-hero  { background: var(--purple); }
+        .work-hero.mc-hero     { background: var(--green); }
+        .work-hero.web-hero    { background: #9BB5C4; }
+        .work-hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .work-hero .placeholder {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 3px;
+        }
+        .work-hero .platform-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.5rem;
+            color: var(--text);
+            letter-spacing: 1px;
+            padding: 10px 14px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            z-index: 2;
+        }
+
+        .work-title {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 1.4rem;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+        .work-subtitle {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 36px;
+        }
+        .work-tag {
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.45rem;
+            padding: 8px 14px;
+            background: rgba(196,168,130,0.15);
+            color: var(--accent);
+            letter-spacing: 1px;
+            border: 2px solid var(--accent);
+        }
+        .work-status {
+            display: inline-block;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.45rem;
+            padding: 6px 12px;
             letter-spacing: 1px;
             border: 2px solid var(--primary);
             color: var(--text-light);
+            margin-bottom: 20px;
         }
-        .status-tag.released { border-color: var(--green); color: var(--green); background: rgba(163,181,166,0.15); }
-        .status-tag.dev      { border-color: var(--accent); color: var(--accent); background: rgba(196,168,130,0.15); }
-        .status-tag.planned  { border-color: var(--purple); color: var(--purple); background: rgba(181,168,192,0.15); }
-        .status-tag.ongoing  { border-color: var(--primary); color: var(--text-light); }
+        .work-status.dev      { border-color: var(--accent); color: var(--accent); background: rgba(196,168,130,0.15); }
+        .work-status.planned  { border-color: var(--purple); color: var(--purple); background: rgba(181,168,192,0.15); }
+        .work-status.ongoing  { border-color: var(--primary); color: var(--text-light); }
+        .work-status.released { border-color: var(--green);   color: var(--green);   background: rgba(163,181,166,0.15); }
 
-        .works-empty {
-            display: none;
-            padding: 40px 12px;
-            text-align: center;
-            color: var(--text-light);
-            font-size: 0.9rem;
+        .work-desc {
+            color: var(--text);
+            line-height: 1.9;
+            font-size: 0.95rem;
+            margin-bottom: 36px;
+            max-width: 720px;
         }
+
+        /* Screenshots */
+        .section-sub {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .section-sub .dot {
+            width: 10px; height: 10px;
+            background: var(--accent);
+        }
+        .screenshot-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .screenshot-grid.cols-2 { grid-template-columns: repeat(2, 1fr); max-width: 560px; }
+        .screenshot {
+            aspect-ratio: 4/5;
+            background: var(--pink);
+            border: 3px solid var(--primary);
+            box-shadow: 4px 4px 0 0 var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
+            font-size: 0.5rem;
+            color: rgba(255,255,255,0.7);
+            letter-spacing: 2px;
+            overflow: hidden;
+        }
+        .screenshot.phone { aspect-ratio: 9/19; }
+        .screenshot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .screenshot-grid > .screenshot:nth-child(2) { background: #E8B8B8; }
+        .screenshot-grid > .screenshot:nth-child(3) { background: #C99898; }
 
         /* Footer */
         footer {
@@ -222,25 +440,28 @@
             text-align: center;
         }
         footer p {
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Press Start 2P', 'Noto Sans SC', cursive;
             font-size: 0.5rem;
             color: var(--text-light);
             letter-spacing: 1px;
         }
 
+        @media (max-width: 900px) {
+            .works-layout {
+                grid-template-columns: 1fr;
+                padding: 24px 24px 64px;
+            }
+            .sidebar { position: static; }
+        }
         @media (max-width: 768px) {
             .nav { padding: 12px 20px; }
             .nav-links { gap: 14px; }
             .nav-links a { font-size: 0.4rem; }
-
-            .page-header { padding: 48px 24px 24px; }
-            .page-header h1 { font-size: 1.1rem; }
-
-            .filter-bar { padding: 0 24px 20px; }
-            .works-section { padding: 0 24px 64px; }
-
-            .index-table td { padding: 12px 6px; font-size: 0.85rem; }
-            .index-table td.type, .index-table td.platform { display: none; }
+            .lang-toggle { font-size: 0.4rem; padding: 6px 10px; }
+            .page-header { padding: 48px 24px 16px; }
+            .page-header h1 { font-size: 1.2rem; }
+            .work-title { font-size: 1rem; }
+            .screenshot-grid, .screenshot-grid.cols-2 { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -252,100 +473,327 @@
 
     <nav class="nav">
         <a href="index.html" class="nav-brand">PUMPKIN SCONE</a>
-        <div class="nav-links">
-            <a href="works.html" class="active">WORKS</a>
-            <a href="index.html#categories">CATEGORIES</a>
-            <a href="index.html#devlog">DEVLOG</a>
-            <a href="index.html#about">ABOUT</a>
+        <div class="nav-right">
+            <div class="nav-links" id="nav-links"></div>
+            <button class="lang-toggle" id="lang-toggle"></button>
         </div>
     </nav>
 
     <header class="page-header">
-        <h1>Works</h1>
-        <p>Every project I've made, am making, or plan to make. Sorted by year. Filter by type to narrow down.</p>
+        <h1 id="page-title"></h1>
+        <p id="page-subtitle"></p>
     </header>
 
-    <div class="filter-bar" id="filter-bar">
-        <button class="filter-btn active" data-filter="all">ALL</button>
-        <button class="filter-btn" data-filter="game">GAMES</button>
-        <button class="filter-btn" data-filter="app">APPS</button>
-        <button class="filter-btn" data-filter="mod">MODS</button>
-        <button class="filter-btn" data-filter="world">WORLD</button>
-        <button class="filter-btn" data-filter="mc">MINECRAFT</button>
-    </div>
+    <div class="works-layout">
 
-    <section class="works-section">
-        <div class="section-head">
-            <span class="section-label">ALL WORKS</span>
-            <span class="section-count" id="works-count">5 PROJECTS</span>
-        </div>
-        <table class="index-table">
-            <tbody id="works-body">
-                <tr data-cat="game">
-                    <td class="year">2025</td>
-                    <td class="name">Game Title</td>
-                    <td class="type">Game · Simulation</td>
-                    <td class="status"><span class="status-tag dev">IN DEV</span></td>
-                    <td class="platform">PC</td>
-                </tr>
-                <tr data-cat="app">
-                    <td class="year">2025</td>
-                    <td class="name">App Name</td>
-                    <td class="type">App</td>
-                    <td class="status"><span class="status-tag planned">PLANNED</span></td>
-                    <td class="platform">iOS · Android</td>
-                </tr>
-                <tr data-cat="mod">
-                    <td class="year">2025</td>
-                    <td class="name">Mod Project</td>
-                    <td class="type">Mod</td>
-                    <td class="status"><span class="status-tag planned">PLANNED</span></td>
-                    <td class="platform">—</td>
-                </tr>
-                <tr data-cat="world">
-                    <td class="year">—</td>
-                    <td class="name">OC World</td>
-                    <td class="type">Worldbuilding</td>
-                    <td class="status"><span class="status-tag ongoing">ONGOING</span></td>
-                    <td class="platform">—</td>
-                </tr>
-                <tr data-cat="mc">
-                    <td class="year">2025</td>
-                    <td class="name">MC Builds &amp; Videos</td>
-                    <td class="type">Minecraft</td>
-                    <td class="status"><span class="status-tag ongoing">ONGOING</span></td>
-                    <td class="platform">Java</td>
-                </tr>
-            </tbody>
-        </table>
-        <p class="works-empty" id="works-empty">No works in this category yet.</p>
-    </section>
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <h2 class="sidebar-title" id="sidebar-title"></h2>
+            <div id="sidebar-groups"></div>
+            <p class="sidebar-empty" id="sidebar-empty"></p>
+        </aside>
+
+        <!-- Main -->
+        <main class="main" id="main-content">
+            <!-- filled by JS -->
+        </main>
+
+    </div>
 
     <footer>
         <p>&copy; 2025 PUMPKIN SCONE STUDIO</p>
     </footer>
 
     <script>
-        const buttons = document.querySelectorAll('.filter-btn');
-        const rows = document.querySelectorAll('#works-body tr');
-        const empty = document.getElementById('works-empty');
-        const count = document.getElementById('works-count');
+        // ============================================================
+        //  i18n
+        //  Any string field may be a plain string OR { en, zh } object.
+        //  t(value) picks the right language.
+        // ============================================================
+        const LANG_KEY = 'ps_lang';
+        let lang = localStorage.getItem(LANG_KEY) || 'en';
 
-        buttons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                buttons.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.dataset.filter;
-                let visible = 0;
-                rows.forEach(row => {
-                    const show = filter === 'all' || row.dataset.cat === filter;
-                    row.style.display = show ? '' : 'none';
-                    if (show) visible++;
+        function t(val) {
+            if (val == null) return '';
+            if (typeof val === 'string') return val;
+            return val[lang] ?? val.en ?? '';
+        }
+
+        const ui = {
+            pageTitle:    { en: 'MY WORKS',                    zh: '我的作品' },
+            pageSubtitle: { en: 'EVERY PROJECT, MADE WITH CARE', zh: '用心创作的每一个项目' },
+            navWorks:      { en: 'WORKS',      zh: '作品' },
+            navCategories: { en: 'CATEGORIES', zh: '分类' },
+            navDevlog:     { en: 'DEVLOG',     zh: '开发日志' },
+            navAbout:      { en: 'ABOUT',      zh: '关于' },
+            sidebarTitle:  { en: 'DIRECTORY',  zh: '目录' },
+            sidebarEmpty:  { en: 'Nothing here yet.', zh: '暂无作品' },
+            screenshots:   { en: 'SCREENSHOTS', zh: '截图展示' },
+            comingSoon:    { en: 'COMING SOON', zh: '即将上线' },
+            comingSoonDesc: {
+                en: "No works published yet. Projects across games, apps, websites, mods, Minecraft, and worldbuilding will appear here as they're added.",
+                zh: '暂未发布任何作品。游戏、应用、网站、模组、Minecraft 和世界观内容将随着创作逐步上线。'
+            },
+            langBtn: { en: '中文', zh: 'EN' }
+        };
+
+        // ============================================================
+        //  WORKS DATA
+        //  Add a work by pushing an object into the matching `works: []`.
+        //  Empty categories/subgroups are hidden automatically.
+        //  Strings can be plain OR { en, zh } for bilingual content.
+        // ============================================================
+        const categories = [
+            {
+                label: { en: 'GAMES', zh: '游戏' },
+                heroClass: 'game-hero',
+                subgroups: [
+                    { label: { en: 'PC',     zh: 'PC 端'  }, works: [] },
+                    { label: { en: 'MOBILE', zh: '移动端' }, works: [] }
+                ]
+            },
+            {
+                label: { en: 'APPS', zh: '应用' },
+                heroClass: '',
+                works: [
+                    {
+                        id: 'carbcycle',
+                        title: 'CarbCycle',
+                        subtitle: {
+                            en: 'Carb cycling diet tracker · iOS & Android',
+                            zh: '碳循环饮食追踪应用 · iOS & Android'
+                        },
+                        platform: 'iOS · Android',
+                        platIcons: ['mobile', 'mobile'],
+                        tags: [
+                            { en: 'MOBILE',       zh: '移动端'    },
+                            { en: 'REACT NATIVE', zh: 'REACT NATIVE' },
+                            { en: 'EXPO',         zh: 'EXPO'      },
+                            { en: 'NUTRITION',    zh: '营养追踪'  },
+                            { en: 'AI',           zh: 'AI'        },
+                            { en: 'I18N',         zh: '三语本地化' }
+                        ],
+                        status: {
+                            text: { en: 'IN DEVELOPMENT', zh: '开发中' },
+                            cls: 'dev'
+                        },
+                        desc: {
+                            en: "A React Native + Expo app for carb cycling diet tracking. Classify each day of the week as High / Medium / Low carb based on training intensity, and track protein, carbs, and fat against daily macro targets. Features a Today dashboard with SVG circular progress, plan-vs-eaten meal tracking, a 97-item localized food library, weight logging, and a dual-engine auto meal planner: an offline algorithm for reliability plus an AI generator (Claude / OpenAI / DeepSeek, bring-your-own-key). Unified Zustand state, full EN / ES / ZH internationalization down to food names and units, and a dark themed UI. Backend-free — everything is stored locally via AsyncStorage.",
+                            zh: '基于 Expo + React Native 的碳循环饮食追踪应用。根据训练强度把一周分为高碳 / 中碳 / 低碳日，围绕这个模式完成每日蛋白 / 碳水 / 脂肪的目标设定与饮食追踪。功能包括 Today 仪表盘（SVG 圆环进度）、"计划 / 已吃"双态膳食记录、97 项多语言食物库、体重日志，以及双引擎自动膳食计划——离线算法保底 + AI 出菜谱（支持 Claude / OpenAI / DeepSeek，用户自带 API Key）。Zustand 持久化统一状态、完整的 EN / ES / ZH 三语本地化（食物名与单位也随语言切换）、深色主题设计。完全本地优先，所有数据走 AsyncStorage，无需后端。'
+                        },
+                        heroImg: 'Image/carbcycle/ChatGPT%20Image%202026%E5%B9%B44%E6%9C%8820%E6%97%A5%2020_19_12.png',
+                        shots: [
+                            { img: 'Image/carbcycle/%E6%88%AA%E5%9B%BE1.jpg', alt: 'CarbCycle screenshot 1' },
+                            { img: 'Image/carbcycle/%E6%88%AA%E5%9B%BE2.jpg', alt: 'CarbCycle screenshot 2' }
+                        ],
+                        shotCols: 2,
+                        shotClass: 'phone',
+                        theme: {
+                            'bg':         '#121212',
+                            'bg-alt':     '#1A1A1A',
+                            'card-bg':    '#1E1E1E',
+                            'primary':    '#3A3A3A',
+                            'accent':     '#FF9800',
+                            'text':       '#F5F5F5',
+                            'text-light': '#A0A0A0'
+                        }
+                    }
+                ]
+            },
+            { label: { en: 'WEBSITES',  zh: '网站'     }, heroClass: 'web-hero',   works: [] },
+            { label: { en: 'MODS',      zh: '模组'     }, heroClass: 'mod-hero',   works: [] },
+            { label: { en: 'MINECRAFT', zh: '我的世界' }, heroClass: 'mc-hero',    works: [] },
+            { label: { en: 'WORLD',     zh: '世界观'   }, heroClass: 'world-hero', works: [] }
+        ];
+
+        // ============================================================
+        //  THEME
+        //  Each work may carry a `theme` object that overrides the
+        //  site's CSS custom properties. Applying a theme briefly adds
+        //  a .theming class so every colored surface animates in sync.
+        // ============================================================
+        const THEMEABLE = ['bg','bg-alt','primary','accent','green','purple','pink','text','text-light','card-bg'];
+        let themingTimer = null;
+
+        function applyTheme(theme) {
+            const root = document.documentElement.style;
+            document.body.classList.add('theming');
+            if (theme) {
+                THEMEABLE.forEach(v => {
+                    if (theme[v]) root.setProperty(`--${v}`, theme[v]);
+                    else root.removeProperty(`--${v}`);
                 });
-                empty.style.display = visible === 0 ? 'block' : 'none';
-                count.textContent = visible + (visible === 1 ? ' PROJECT' : ' PROJECTS');
+            } else {
+                THEMEABLE.forEach(v => root.removeProperty(`--${v}`));
+            }
+            clearTimeout(themingTimer);
+            themingTimer = setTimeout(() => document.body.classList.remove('theming'), 650);
+        }
+
+        // ============================================================
+        //  RENDER
+        // ============================================================
+        let worksIndex = {};
+        let selectedId = null;
+
+        function collectWorks(cat) {
+            if (cat.subgroups) return cat.subgroups.flatMap(s => s.works);
+            return cat.works || [];
+        }
+
+        function renderNav() {
+            document.getElementById('nav-links').innerHTML = `
+                <a href="works.html" class="active">${t(ui.navWorks)}</a>
+                <a href="index.html#categories">${t(ui.navCategories)}</a>
+                <a href="index.html#devlog">${t(ui.navDevlog)}</a>
+                <a href="index.html#about">${t(ui.navAbout)}</a>
+            `;
+            document.getElementById('lang-toggle').textContent = t(ui.langBtn);
+            document.getElementById('page-title').textContent = t(ui.pageTitle);
+            document.getElementById('page-subtitle').textContent = t(ui.pageSubtitle);
+            document.getElementById('sidebar-title').textContent = t(ui.sidebarTitle);
+            document.getElementById('sidebar-empty').textContent = t(ui.sidebarEmpty);
+            document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+        }
+
+        function renderSidebar() {
+            const container = document.getElementById('sidebar-groups');
+            const empty = document.getElementById('sidebar-empty');
+            container.innerHTML = '';
+            worksIndex = {};
+
+            let total = 0;
+            let firstId = null;
+
+            categories.forEach(cat => {
+                const catWorks = collectWorks(cat);
+                if (catWorks.length === 0) return;
+
+                const group = document.createElement('div');
+                group.className = 'sidebar-group';
+                const gl = document.createElement('div');
+                gl.className = 'group-label';
+                gl.innerHTML = `<span class="pixel-icon"></span>${t(cat.label)}`;
+                group.appendChild(gl);
+
+                if (cat.subgroups) {
+                    cat.subgroups.forEach(sub => {
+                        if (sub.works.length === 0) return;
+                        const subLabel = document.createElement('div');
+                        subLabel.className = 'subgroup-label';
+                        subLabel.textContent = t(sub.label);
+                        group.appendChild(subLabel);
+                        sub.works.forEach(w => {
+                            group.appendChild(makeItem(w, cat.heroClass));
+                            worksIndex[w.id] = { ...w, heroClass: cat.heroClass };
+                            total++;
+                            if (!firstId) firstId = w.id;
+                        });
+                    });
+                } else {
+                    cat.works.forEach(w => {
+                        group.appendChild(makeItem(w, cat.heroClass));
+                        worksIndex[w.id] = { ...w, heroClass: cat.heroClass };
+                        total++;
+                        if (!firstId) firstId = w.id;
+                    });
+                }
+
+                container.appendChild(group);
             });
+
+            if (total === 0) {
+                empty.classList.add('show');
+                applyTheme(null);
+                renderEmptyMain();
+            } else {
+                empty.classList.remove('show');
+                const target = (selectedId && worksIndex[selectedId]) ? selectedId : firstId;
+                select(target);
+            }
+        }
+
+        function makeItem(work, heroClass) {
+            const item = document.createElement('div');
+            item.className = 'sidebar-item';
+            item.dataset.id = work.id;
+            const icons = (work.platIcons || []).map(p => `<span class="plat ${p}"></span>`).join('');
+            item.innerHTML = `<span>${t(work.title)}</span><span class="platform-icons">${icons}</span>`;
+            item.addEventListener('click', () => select(work.id));
+            return item;
+        }
+
+        function select(id) {
+            selectedId = id;
+            document.querySelectorAll('.sidebar-item').forEach(i => {
+                i.classList.toggle('active', i.dataset.id === id);
+            });
+            const w = worksIndex[id];
+            applyTheme(w ? w.theme : null);
+            renderMain(id);
+        }
+
+        function renderMain(id) {
+            const w = worksIndex[id];
+            if (!w) return;
+
+            const heroInner = w.heroImg
+                ? `<img src="${w.heroImg}" alt="${t(w.title)} key art">`
+                : `<span class="placeholder">KEY ART</span>`;
+
+            const shotsHtml = (w.shots || []).map(s => {
+                if (typeof s === 'string') {
+                    return `<div class="screenshot ${w.shotClass || ''}">${s}</div>`;
+                }
+                if (s.img) {
+                    return `<div class="screenshot ${w.shotClass || ''}"><img src="${s.img}" alt="${s.alt || ''}"></div>`;
+                }
+                return `<div class="screenshot ${w.shotClass || ''}">${t(s.label || '')}</div>`;
+            }).join('');
+
+            const colsClass = w.shotCols === 2 ? 'cols-2' : '';
+
+            document.getElementById('main-content').innerHTML = `
+                <div class="work-hero ${w.heroClass || ''}">
+                    ${heroInner}
+                    <span class="platform-badge">${t(w.platform)}</span>
+                </div>
+                <span class="work-status ${w.status.cls}">${t(w.status.text)}</span>
+                <h2 class="work-title">${t(w.title)}</h2>
+                <p class="work-subtitle">${t(w.subtitle)}</p>
+                <div class="work-tags">
+                    ${(w.tags || []).map(tag => `<span class="work-tag">${t(tag)}</span>`).join('')}
+                </div>
+                <p class="work-desc">${t(w.desc)}</p>
+                <div class="section-sub"><span class="dot"></span>${t(ui.screenshots)}</div>
+                <div class="screenshot-grid ${colsClass}">
+                    ${shotsHtml}
+                </div>
+            `;
+        }
+
+        function renderEmptyMain() {
+            document.getElementById('main-content').innerHTML = `
+                <div class="main-empty">
+                    <h2>${t(ui.comingSoon)}</h2>
+                    <p>${t(ui.comingSoonDesc)}</p>
+                    <div class="pixel-dots"><span></span><span></span><span></span></div>
+                </div>
+            `;
+        }
+
+        function renderAll() {
+            renderNav();
+            renderSidebar();
+        }
+
+        document.getElementById('lang-toggle').addEventListener('click', () => {
+            lang = lang === 'en' ? 'zh' : 'en';
+            localStorage.setItem(LANG_KEY, lang);
+            renderAll();
         });
+
+        renderAll();
     </script>
 
 </body>
