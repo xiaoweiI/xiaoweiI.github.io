@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heard You Cook</title>
+<meta name="description" content="Cook with what you have. See what dinner meant to the people who ate it.">
+<style>
+  :root {
+    --paper: #faf7f2;
+    --ink: #2a2623;
+    --muted: #6b635b;
+    --line: #e2dbd0;
+    --slot: #ece6dc;
+    --accent: #a8442c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #1d1b19;
+      --ink: #ece6dc;
+      --muted: #a69d92;
+      --line: #3a3531;
+      --slot: #2b2825;
+      --accent: #e08a6c;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  header { padding: 72px 0 40px; border-bottom: 1px solid var(--line); }
+  h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: normal;
+    font-size: 44px;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    letter-spacing: -0.01em;
+  }
+  .oneliner { font-size: 20px; color: var(--muted); margin: 0 0 24px; }
+  .about { margin: 0; }
+  section { padding: 40px 0; border-bottom: 1px solid var(--line); }
+  h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 1.25;
+    margin: 0 0 12px;
+  }
+  .label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  p { margin: 0 0 14px; }
+  figure { margin: 24px 0 0; }
+  .title-art { display: block; width: 100%; height: auto; margin-top: 24px; }
+  .shot {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--slot);
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .shot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  blockquote {
+    margin: 20px 0 0;
+    padding: 0 0 0 16px;
+    border-left: 2px solid var(--accent);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 19px;
+  }
+  blockquote cite { display: block; font-family: inherit; font-style: normal; font-size: 14px; color: var(--muted); margin-top: 6px; }
+  .video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--slot);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 15px;
+    text-align: center;
+    padding: 16px;
+    margin-top: 16px;
+  }
+  ul { margin: 0; padding-left: 20px; }
+  li { margin-bottom: 10px; }
+  footer { padding: 32px 0 64px; font-size: 15px; color: var(--muted); }
+  footer p { margin: 0 0 6px; }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    header { padding: 48px 0 32px; }
+    h1 { font-size: 34px; }
+    .oneliner { font-size: 18px; }
+    h2 { font-size: 22px; }
+    section { padding: 32px 0; }
+  }
+  nav {display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:18px} nav a {color:var(--accent); text-underline-offset:3px} figure + p {margin-top:24px} .shot {height:auto; aspect-ratio:auto} .shot img {height:auto} .video {display:block; padding:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header><h1>Heard You Cook</h1><p class="oneliner">Cook with what you have. See what dinner meant to the people who ate it.</p><p class="about">You're an international student living in the living room of a shared apartment. Tonight your shelf in the fridge is empty. Your roommate has tomatoes and eggs. Your roommate takes a photo before she eats. Later, you can read what her friends thought of your dinner.</p><nav aria-label="Explore the demo"><a href="#phone">On your phone</a><a href="#kitchen">In your kitchen</a><a href="#gameplay-video">Watch gameplay</a></nav><img class="title-art" src="img/title-screen-september.png" width="1920" height="1080" alt="Heard You Cook title screen with two cooks sharing a kitchen."></header>
+
+<section id="phone"><span class="label">On your phone</span><h2>Your roommate had a life before you moved in</h2><p>Open Yining’s Chronicle on your phone. She moved into the apartment in 2023 and became roommates with Maya before you arrived. Now there’s an entry you remember from the other side of the table.</p><blockquote>“Shared Tomato &amp; Egg Stir-fry with you.”<cite>Yining’s Chronicle, Day 1</cite></blockquote><figure><a class="shot" href="img/chronicle-r4.png"><img src="img/chronicle-r4.png" alt="Yining Shen’s Chronicle, with her apartment move and shared dinner entries." loading="lazy"></a><figcaption>Yining’s Chronicle records her move, her roommate and the dinner you shared.</figcaption></figure><p>You answer with reaction stickers. When your roommate posts dinner on her feed, you can read what her friends say, including people you’ve never met. A few days later, names appear in the Meal Order Group beside lunch orders. Open a contact’s profile to see their tastes, usual orders and how they see you.</p><figure><a class="shot" href="img/dinner-feed-r4.png"><img src="img/dinner-feed-r4.png" alt="A roommate’s dinner post and a friend’s comment." loading="lazy"></a></figure><figure><a class="shot" href="img/shot-3.png"><img src="img/shot-3.png" alt="People sign up for lunch in the group chat." loading="lazy"></a><figcaption>The meal-order chat the morning after you post a menu.</figcaption></figure></section>
+
+<section id="kitchen"><span class="label">In your kitchen</span><h2>Save half the water for the rice</h2><p>On your first night, take tomatoes and eggs from your roommate’s shelf. Lay them out on the cooking paper, season them and choose the heat and cooking time. The same ingredients can turn out silky, dry or burnt.</p><figure><a class="shot" href="img/shot-1.png"><img src="img/shot-1.png" alt="Tomatoes and eggs cooking on the stove." loading="lazy"></a></figure><p>When eight people order lunch, every ingredient has somewhere to go. Order salt and oil on your tablet and collect the delivery at the front door. Split two litres of water between the braise and the rice. While the braise simmers, cook the rice, then portion 180 grams into the large compartment of each lunch box.</p><figure><a class="shot" href="img/packing-r4.png"><img src="img/packing-r4.png" alt="The packing table with an order ticket, rice and a divided lunch box." loading="lazy"></a><figcaption>At the packing table, check the ticket as you fill each compartment.</figcaption></figure></section>
+
+<section id="gameplay-video">
+  <span class="label">Video</span>
+  <h2>Gameplay video</h2>
+  <p>A narrated gameplay walkthrough with English captions.</p>
+  <video src="media/gameplay-r4.mp4" class="video" controls playsinline preload="metadata" poster="img/shot-1.png" aria-label="Heard You Cook demo walkthrough"></video>
+  <p><a href="media/gameplay-r4.mp4">Play the video in a new page</a></p>
+</section>
+
+<section>
+  <span class="label">Demo</span>
+  <h2>What's in the demo</h2>
+  <p>The story opens with three days in the shared apartment.</p>
+  <ul>
+    <li><strong>Day 1.</strong> You arrive, move your things in, unpack, and cook dinner with what's in your roommate's share of the fridge. You eat together and meet your other roommate.</li>
+    <li><strong>Day 2.</strong> Your roommate mentions how many likes her post got and suggests you could sell your cooking. You set up shop on Made &amp; Found and post your first menu, a single fixed set.</li>
+    <li><strong>Day 3.</strong> Eight orders are waiting. You cook, pack every box, and hand the meals over.</li>
+  </ul>
+  <p>After the guided opening, you can visit the supermarket in Chinatown, browse the weekend farmers' market on the pedestrian street, or fish at the harbor. The market is open on Saturdays and Sundays from 8 a.m. to 1 p.m. in-game.</p>
+</section>
+
+<section>
+  <span class="label">Status</span>
+  <h2>In development</h2>
+  <ul>
+    <li>Classes. The calendar already shows a class schedule, but nothing happens at class time yet.</li>
+    <li>Art. Much of it is placeholder; art is work in progress.</li>
+  </ul>
+</section>
+
+<footer>
+  <p>Made by Pumpkin Scone</p>
+
+
+</footer>
+
+</div>
+</body>
+</html>
